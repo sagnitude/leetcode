@@ -1,3 +1,10 @@
+#include <string>
+#include <iostream>
+#include <memory>
+
+using std::string;
+using std::cout;
+
 class Solution {
 public:
     string longestPalindrome(string s) {
@@ -16,3 +23,10 @@ public:
         return s.substr(min_start, max_len);
     }
 };
+
+int main() {
+    Solution s;
+    auto t = std::make_shared<Solution>();
+    cout << t->longestPalindrome("asdffff") << std::endl;
+    return 0;
+}
