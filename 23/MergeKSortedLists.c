@@ -43,11 +43,12 @@ struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) {
         }
         p = p->next;
     }
-    return r->next;
+    p = r->next;
+    free(r);
+    return p;
 }
 
 /**
- * TODO: Why is this function much much more slower than MergeTwoLists in C?
  * pointer offset is done by plus a integer
  * Definition for singly-linked list.
  * struct ListNode {
@@ -69,7 +70,8 @@ struct ListNode* mergeKLists(struct ListNode** lists, int listsSize) {
 }
 
 int main() {
-    struct ListNode* l1 = (struct ListNode*)malloc(sizeof(struct ListNode));
-    struct ListNode* l2 = (struct ListNode*)malloc(sizeof(struct ListNode));
-    mergeTwoLists(l1, l2);
+    struct ListNode** ls;
+    ls[0] = (struct ListNode*)malloc(sizeof(struct ListNode));
+    ls[1] = (struct ListNode*)malloc(sizeof(struct ListNode));
+    mergeKLists(ls, 2);
 }
