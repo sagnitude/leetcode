@@ -9,34 +9,54 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    var origin = nums.slice(0);
-    var sorted = nums.sort(function(x, y){
-        if (x<y) {
+    var indices = new Array(nums.length);
+    for (var k = 0; k < nums.length; k++) {
+        indices[k] = k;
+    }
+    var sorted = indices.sort(function(x, y){
+        if (nums[x] < nums[y]) {
             return -1;
-        } else if (x>y) {
+        } else if (nums[x] > nums[y]) {
             return 1;
         }
     });
     var i = 0;
     var j = sorted.length - 1;
     var sum;
-    while (sorted[i] + sorted[j] !== target && i !== j) {
-        sum = sorted[i] + sorted[j];
-        if (sum < target) {
-            i++;
-        } else {
-            j--;
-        }
+    while ((sum = nums[sorted[i]] + nums[sorted[j]]) !== target && i !== j) {
+        sum < target ? i++ : j--;
     }
-    var less = sorted[i];
-    var more = sorted[j];
-    i = 0;
-    j = 0;
-    while (origin[i] !== less) {
-        i++;
-    }
-    while(origin[j] !== more || j === i) {
-        j++;
-    }
-    return i > j ? [j+1, i+1] : [i+1, j+1];
+    var x = sorted[i];
+    var y = sorted[j];
+    return x > y ? [y, x] : [x, y];
 };
+
+var a = function() {
+    function insertSort(arr, list) {
+      for (var i = 1; i < arr.length; i++) {
+        var tmp = arr[i],
+            j = i;
+        while (list[arr[j - 1]] > list[tmp]) {
+          arr[j] = arr[j - 1];
+          --j;
+        }
+        arr[j] = tmp;
+      }
+
+      return arr;
+    }
+    var indices = [];
+    for (var k = 0; k < nums.length; k++) {
+        indices[k] = k;
+    }
+    var sorted = insertSort(indices, nums);
+    var i = 0;
+    var j = sorted.length - 1;
+    var sum;
+    while ((sum = nums[sorted[i]] + nums[sorted[j]]) !== target && i !== j) {
+        sum < target ? i++ : j--;
+    }
+    var x = sorted[i];
+    var y = sorted[j];
+    return x > y ? [y, x] : [x, y];
+}
