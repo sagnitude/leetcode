@@ -14,13 +14,13 @@ class Solution:
                 j -= 1
         less = sorted_nums[i]
         more = sorted_nums[j]
-        i = 0;
-        j = 0;
+        i = 0
+        j = 0
         while (nums[i] != less):
             i += 1
         while (nums[j] != more or j == i):
             j += 1
         if (i > j):
-            return [j+1, i+1]
+            return [j, i]
         else:
-            return [i+1, j+1]
+            return [i, j]
