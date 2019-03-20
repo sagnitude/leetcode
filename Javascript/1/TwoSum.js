@@ -1,37 +1,32 @@
 /**
- * Binary Search for #1 Two Sum
- * note that nums.slice(0) do copies the array, while assgnments doesn't
- * note that [].sort() can't handle minus zero numbers:
- *   [1,2,3,4,5].sort() -> [1,2,3,4,5]
- *   [-1,-2,-3,-4,-5].sort() -> [-1,-2,-3,-4,-5]
+ *
+ * 1. use Map as HashMap, it's slightly faster than plain Object
+ * 2. use do-while (--) to optimize iterations (better than do-while(++) and for)
+ * 3. set the complement of the current number into HashMap, this helps reduce some arithmetic ops
+ * 4. use `===` instead of `==`, this is slightly faster
+ *
  * @param {number[]} nums
  * @param {number} target
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    function insertSort(arr, list) {
-      for (var i = 1; i < arr.length; i++) {
-        var tmp = arr[i], j = i, swap;
-        while (list[swap = arr[j - 1]] > list[tmp]) {
-          arr[j--] = swap;
-        }
-        arr[j] = tmp;
-      }
 
-      return arr;
+    var len = nums.length;
+
+    var num = 0;
+    var leftIndex = -1;
+
+    var map = new Map();
+
+    while (len--) {
+        num = nums[len];
+
+        leftIndex = map.get(num);
+
+        if (leftIndex !== undefined) {
+            return [len, leftIndex];
+        }
+
+        map.set(target - num, len);
     }
-    var indices = [];
-    for (var k = 0; k < nums.length; k++) {
-        indices[k] = k;
-    }
-    var sorted = insertSort(indices, nums);
-    var i = 0;
-    var j = sorted.length - 1;
-    var sum;
-    while ((sum = nums[sorted[i]] + nums[sorted[j]]) !== target && i !== j) {
-        sum < target ? i++ : j--;
-    }
-    var x = sorted[i];
-    var y = sorted[j];
-    return x > y ? [y, x] : [x, y];
 };
